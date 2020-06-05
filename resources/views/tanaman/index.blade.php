@@ -25,7 +25,6 @@
           <th scope="col">Keterangan</th>
           <th scope="col">Status</th>
           <th scope="col">Aksi</th>
-          test
         </tr>
       </thead>
       <tbody>

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Tanaman;
+use App\Pengaliran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TanamanController extends Controller
+class PengaliranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class TanamanController extends Controller
      */
     public function index()
     {
-      $plans = Tanaman::all();
-      return view('tanaman.index', compact('plans'));
+      $pengaliran = Pengaliran::all();
+      return view('pengaliran.index', compact('pengaliran'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TanamanController extends Controller
      */
     public function create()
     {
-        return view('tanaman.create');
+        return view('pengaliran.create');
     }
 
     /**
@@ -43,8 +43,8 @@ class TanamanController extends Controller
          'max_ppm'=>'required',
       ]);
       
-      $tanaman = new Tanaman([
-         'id_tanaman' => uniqid(),
+      $pengaliran = new Pengaliran([
+         'id_pengaliran' => uniqid(),
          'nama_tanaman' => $request->get('nama_tanaman'),
          'tanggal_tanam' => date('d-m-yy'),
          'keterangan' => $request->get('keterangan'),
@@ -54,18 +54,18 @@ class TanamanController extends Controller
          'status' => 0
       ]);
 
-      $tanaman->save();
+      $pengaliran->save();
       
-      return redirect('/plans')->with('success', 'Tanaman saved!');
+      return redirect('/plans')->with('success', 'Pengaliran saved!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tanaman  $tanaman
+     * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
-    public function show(Tanaman $tanaman)
+    public function show(Pengaliran $pengaliran)
     {
         //
     }
@@ -73,10 +73,10 @@ class TanamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tanaman  $tanaman
+     * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tanaman $tanaman)
+    public function edit(Pengaliran $pengaliran)
     {
         //
     }
@@ -85,10 +85,10 @@ class TanamanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tanaman  $tanaman
+     * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tanaman $tanaman)
+    public function update(Request $request, Pengaliran $pengaliran)
     {
         //
     }
@@ -96,14 +96,14 @@ class TanamanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tanaman  $tanaman
+     * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     { 
-      // echo $tanaman;die;
-      $tanaman = Tanaman::find($id);
-      $tanaman->delete();
-      return redirect()->route('plans.index')->with('success','Tanaman deleted successfully');
+      // echo $pengaliran;die;
+      $pengaliran = Pengaliran::find($id);
+      $pengaliran->delete();
+      return redirect()->route('plans.index')->with('success','pengaliran deleted successfully');
     }
 }

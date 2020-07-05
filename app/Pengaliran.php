@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @property string $id_tanaman
+ * @property string $id_pengaliran
  * @property string $email
  * @property string $nama_tanaman
  * @property string $tanggal_tanam
@@ -13,26 +13,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $min_ppm
  * @property float $max_ppm
  * @property integer $status
+ * @property string $tanggal_berakhir
  * @property User $user
  * @property PembacaanSensor[] $pembacaanSensors
- * @property KondisiTanaman[] $kondisiTanamen
+ * @property Kondisi[] $kondisis
  */
-class Tanaman extends Model
+class Pengaliran extends Model
 {
-   public $timestamps = false;
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'tanaman';
+    protected $table = 'pengaliran';
 
     /**
      * The primary key for the model.
      * 
      * @var string
      */
-    protected $primaryKey = 'id_tanaman';
+    protected $primaryKey = 'id_pengaliran';
 
     /**
      * The "type" of the auto-incrementing ID.
@@ -51,7 +51,7 @@ class Tanaman extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_tanaman' ,'email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status'];
+    protected $fillable = ['email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status', 'tanggal_berakhir'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -66,14 +66,14 @@ class Tanaman extends Model
      */
     public function pembacaanSensors()
     {
-        return $this->hasMany('App\PembacaanSensor', 'id_tanaman', 'id_tanaman');
+        return $this->hasMany('App\PembacaanSensor', 'id_pengaliran', 'id_pengaliran');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function kondisiTanamen()
+    public function kondisis()
     {
-        return $this->hasMany('App\KondisiTanaman', 'id_tanaman', 'id_tanaman');
+        return $this->hasMany('App\Kondisi', 'id_pengaliran', 'id_pengaliran');
     }
 }

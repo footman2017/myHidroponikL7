@@ -5,25 +5,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property string $id
  * @property string $id_pengaliran
- * @property float $ppm1
- * @property float $ppm2
- * @property string $waktu
+ * @property string $foto
  * @property Pengaliran $pengaliran
  */
-class PembacaanSensor extends Model
+class Kondisi extends Model
 {
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'pembacaan_sensor';
+    protected $table = 'kondisi';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * @var array
      */
-    protected $fillable = ['id_pengaliran', 'ppm1', 'ppm2', 'waktu'];
+    protected $fillable = ['id_pengaliran', 'foto'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

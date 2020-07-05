@@ -219,8 +219,13 @@ return [
             'can'  => 'manage-blog',
         ],
         [
+         'text'        => 'Dashboard',
+         'url'         => 'home',
+         'icon'        => 'fas fa-table',
+        ],
+        [
          'text'        => 'Data Pengaliran',
-         'url'         => 'plans',
+         'url'         => 'pengaliran',
          'icon'        => 'fas fa-table',
         ],
         [

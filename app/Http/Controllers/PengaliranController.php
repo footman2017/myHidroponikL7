@@ -56,7 +56,7 @@ class PengaliranController extends Controller
 
       $pengaliran->save();
       
-      return redirect('/plans')->with('success', 'Pengaliran saved!');
+      return redirect('/pengaliran')->with('success', 'Pengaliran saved!');
     }
 
     /**
@@ -104,6 +104,6 @@ class PengaliranController extends Controller
       // echo $pengaliran;die;
       $pengaliran = Pengaliran::find($id);
       $pengaliran->delete();
-      return redirect()->route('plans.index')->with('success','pengaliran deleted successfully');
+      return redirect()->route('pengaliran.index')->with('success','pengaliran deleted successfully');
     }
 }

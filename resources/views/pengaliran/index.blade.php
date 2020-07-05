@@ -9,7 +9,7 @@
    </div>
 @endif
 <div>
-   <a class="btn btn-primary" href="{{ route('plans.create') }}" role="button">Tambah Pengaliran</a>
+   <a class="btn btn-primary" href="{{ route('pengaliran.create') }}" role="button">Tambah Pengaliran</a>
 </div>
 <br>
 
@@ -31,7 +31,7 @@
          @php
              $i = 1;
          @endphp
-         @foreach ($plans as $tanaman)
+         @foreach ($pengaliran as $tanaman)
          <tr>
             <th scope="row">{{ $i++ }}</th>
             <td>{{$tanaman->nama_tanaman}}</td>
@@ -46,14 +46,14 @@
             </td>
             <td style="text-align: center">
                @if ($tanaman->status != 0)
-               <form action="{{route('plans.destroy',$tanaman->id_tanaman)}}" method="POST">
-                  <a class="btn btn-info btn-sm" href="{{route('plans.show',$tanaman)}}">Show</a>
+               <form action="{{route('pengaliran.destroy',$tanaman->id_tanaman)}}" method="POST">
+                  <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                </form>
                @else
-               <a class="btn btn-info btn-sm" href="{{route('plans.show',$tanaman)}}">Show</a>
+               <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
                <button type="submit" class="btn btn-danger btn-sm" disabled>Delete</button>
                @endif
                

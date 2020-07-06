@@ -44,6 +44,7 @@
 <script>
 $(document).ready(function() {
       var tanggal = new Array();
+      var time;
       var nilai = new Array();
       var refreshIntervalId;
       
@@ -71,7 +72,9 @@ $(document).ready(function() {
          success:function(response){
             console.log(response);
             response.forEach(function(data){
-               tanggal.push(data.waktu);
+               time = data.waktu.split(' ');
+               // console.log(time[0]);
+               tanggal.push(time[1]);
                nilai.push(data.ppm1);
             });
             var ctx = document.getElementById("myChart").getContext('2d');
@@ -106,14 +109,16 @@ $(document).ready(function() {
                if(this.checked) {
                   refreshIntervalId = setInterval(function(){
                      $.ajax({
-                        url: "{{url('/diagram/getdatalastph')}}",
+                        url: "{{url('/getLastPPM')}}",
                         type: 'get',
                         // data: {ggwp:2},
                         dataType: 'json',
                         success:
                         function(response){
-                           if(tanggal[tanggal.length-1] != response.waktu){
-                              addData(myChart, response.waktu, response.ppm1);
+                           time = response.waktu.split(' ');
+                           console.log(time[1]);
+                           if(tanggal[tanggal.length-1] != time[1]){
+                              addData(myChart, time[1], response.ppm1);
                               removeData(myChart);
                            }
                         }

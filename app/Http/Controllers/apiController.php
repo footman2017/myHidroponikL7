@@ -25,4 +25,9 @@ class apiController extends Controller
       return response()->json($data);
    }
 
+   public function requestLastPPM(){
+      $data = PembacaanSensor::latest('waktu')->first();
+      return response()->json($data);
+   }
+
 }

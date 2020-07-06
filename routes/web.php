@@ -22,3 +22,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('pengaliran', 'PengaliranController');
 Route::get('/getDataPPM', 'apiController@requestPPM');
+Route::get('/getLastPPM', 'apiController@requestLastPPM');

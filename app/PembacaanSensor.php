@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PembacaanSensor extends Model
 {
+    public $timestamps = false;
+    protected $primaryKey = 'waktu';
+    protected $keyType = 'string';
     /**
      * The table associated with the model.
      * 

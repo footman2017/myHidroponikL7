@@ -42,42 +42,101 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous"></script>
 <script>
-var ctx = document.getElementById('myChart');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
+$(document).ready(function() {
+      var tanggal = new Array();
+      var nilai = new Array();
+      var refreshIntervalId;
+      
+      function addData(chart, label, data) {
+         chart.data.labels.push(label);
+         chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+         });
+         chart.update();
+      }
+
+      function removeData(chart) {
+         chart.data.labels.shift();
+         chart.data.datasets.forEach((dataset) => {
+            dataset.data.shift();
+         });
+         chart.update();
+      }
+
+      $.ajax({
+         url: "{{url('/getDataPPM')}}",
+         type: 'get',
+         // data: {ggwp:2},
+         dataType: 'json',
+         success:function(response){
+            console.log(response);
+            response.forEach(function(data){
+               tanggal.push(data.waktu);
+               nilai.push(data.ppm1);
+            });
+            var ctx = document.getElementById("myChart").getContext('2d');
+            var myChart = new Chart(ctx, {
+               type: 'line',
+               data: {
+                  labels:tanggal.reverse(),
+                  datasets: [{
+                     label: 'PPM',
+                     data: nilai.reverse(),
+                     borderWidth: 3,
+                     fill : false,
+                     backgroundColor : '##00cccc',
+                     borderColor : '#00ffff'
+                  }]
+               },
+               options: {
+                  scales: {
+                     yAxes: [{
+                        ticks: {
+                           beginAtZero:true,
+                           // suggestedMin: 0,
+                           // suggestedMax: 14,
+                           // stepSize: 2
+                        }
+                     }]
+                  }
+               }
+            });
+
+            $('#realtime').change(function() {
+               if(this.checked) {
+                  refreshIntervalId = setInterval(function(){
+                     $.ajax({
+                        url: "{{url('/diagram/getdatalastph')}}",
+                        type: 'get',
+                        // data: {ggwp:2},
+                        dataType: 'json',
+                        success:
+                        function(response){
+                           if(tanggal[tanggal.length-1] != response.waktu){
+                              addData(myChart, response.waktu, response.ppm1);
+                              removeData(myChart);
+                           }
+                        }
+                     });
+
+                     // var waktu = new Date();
+                     // var tahun = waktu.getFullYear();
+                     // var bulan = waktu.getMonth();
+                     // var tanggal = waktu.getDate();
+                     // var jam = waktu.getHours();
+                     // var menit = waktu.getMinutes();
+                     // var detik = waktu.getSeconds();
+                     // addData(myChart, ""+tahun+"-"+bulan+"-"+tanggal+" "+jam+":"+menit+":"+detik+"", (Math.floor(Math.random() * 14) + 0));
+                     // removeData(myChart);
+                  }, 1000);      
+               }else{
+                  console.log(refreshIntervalId);
+                  clearInterval(refreshIntervalId);
+               }
+            });
+         }
+      });
+   
+   });
 </script>
 @endsection

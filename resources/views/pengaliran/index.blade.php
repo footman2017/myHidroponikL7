@@ -46,7 +46,7 @@
             </td>
             <td style="text-align: center">
                @if ($tanaman->status != 0)
-               <form action="{{route('pengaliran.destroy',$tanaman->id_tanaman)}}" method="POST">
+               <form action="{{route('pengaliran.destroy',$tanaman->id_pengaliran)}}" method="POST">
                   <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
                   @csrf
                   @method('DELETE')

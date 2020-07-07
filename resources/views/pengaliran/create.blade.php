@@ -2,7 +2,7 @@
 @section('title', 'Tambah Tanaman')
 @section('content')
 <h3>Mulai Pengaliran Baru</h3>
-<form action="{{ route('plans.store') }}" method="post" name="form1">
+<form action="{{ route('pengaliran.store') }}" method="post" name="form1">
    {{ csrf_field() }}
    <div class="form-group">
       <label for="nama_tanaman">Nama Tanaman</label>

@@ -10,7 +10,7 @@
    @endif   
 </div>
 <div class="container">
-    <div>
+    <div id="PPMgraph">
        <div class="card">
          <div class="card-header">
             <h3 class="card-title">
@@ -26,7 +26,7 @@
           </div><!-- /.card-header -->
           <div class="card-body">
             <div class="tab-content p-0">
-              <div class="chart tab-pane active" id="revenue-chart"
+              <div class="chart tab-pane active" id="PPM-chart"
                    style="position: relative; height: auto;">
                   <canvas id="myChart" height="300" style="height: 1200px;"></canvas>                         
                </div>
@@ -34,6 +34,25 @@
           </div><!-- /.card-body -->
        </div>
     </div>
+
+    <div id="serapanGraph">
+      <div class="card">
+        <div class="card-header">
+           <h3 class="card-title">
+             <i class="fas fa-chart-pie mr-1"></i>
+             Serapan PPM
+           </h3>
+         </div><!-- /.card-header -->
+         <div class="card-body">
+           <div class="tab-content p-0">
+             <div class="chart tab-pane active" id="serapans-chart"
+                  style="position: relative; height: auto;">
+                 <canvas id="serapanChart" height="300" style="height: 1200px;"></canvas>                         
+              </div>
+           </div>
+         </div><!-- /.card-body -->
+      </div>
+   </div>
 </div>
 @endsection
 @section('css')
@@ -44,8 +63,10 @@
 <script>
 $(document).ready(function() {
       var tanggal = new Array();
+      var tanggal_serapan = new Array();
       var time;
       var nilai = new Array();
+      var selisih = new Array();
       var refreshIntervalId;
       
       function addData(chart, label, data) {
@@ -85,7 +106,7 @@ $(document).ready(function() {
                   datasets: [{
                      label: 'PPM',
                      data: nilai.reverse(),
-                     borderWidth: 3,
+                     borderWidth: 2,
                      fill : false,
                      backgroundColor : '##00cccc',
                      borderColor : '#00ffff'
@@ -137,6 +158,47 @@ $(document).ready(function() {
                }else{
                   console.log(refreshIntervalId);
                   clearInterval(refreshIntervalId);
+               }
+            });
+         }
+      });
+
+      $.ajax({
+         url: "{{url('/getSerapanPPM')}}",
+         type: 'get',
+         // data: {ggwp:2},
+         dataType: 'json',
+         success:function(response){
+            console.log(response);
+            response.forEach(function(data){
+               tanggal_serapan.push(data.tanggal);
+               selisih.push(data.selisih);
+            });
+            var ctx_serapan = document.getElementById("serapanChart").getContext('2d');
+            var serapanChart = new Chart(ctx_serapan, {
+               type: 'line',
+               data: {
+                  labels:tanggal_serapan,
+                  datasets: [{
+                     label: 'Serapan PPM',
+                     data: selisih,
+                     borderWidth: 2,
+                     fill : false,
+                     backgroundColor : '##00cccc',
+                     borderColor : '#00ffff'
+                  }]
+               },
+               options: {
+                  scales: {
+                     yAxes: [{
+                        ticks: {
+                           beginAtZero:true,
+                           // suggestedMin: 0,
+                           // suggestedMax: 14,
+                           // stepSize: 2
+                        }
+                     }]
+                  }
                }
             });
          }

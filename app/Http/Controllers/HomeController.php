@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pengaliran;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,8 +23,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        return view('home');
-    }
+   public function index()
+   {
+      $user = Auth::user();
+      $data = Pengaliran::where([
+         ['email', $user->email],
+         ['status', 1]
+      ])->get();
+
+      return view('home', compact('data'));
+   }
 }

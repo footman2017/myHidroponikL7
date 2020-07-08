@@ -9,7 +9,7 @@
      </div>
    @endif   
 </div>
-<div class="container">
+{{-- <div class="container"> --}}
     <div id="PPMgraph">
        <div class="card">
          <div class="card-header">
@@ -53,7 +53,50 @@
          </div><!-- /.card-body -->
       </div>
    </div>
-</div>
+   
+   <div class="row">
+      <div class="col-sm-4">
+         <div class="card text-center">
+            <div class="card-header ">
+               Status
+            </div>
+            <div class="card-body">
+               <p class="card-text">{{$data[0]['status']}}</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-4">
+         <div class="card text-center">
+            <div class="card-header">
+               PPM
+            </div>
+            <div class="card-body">
+               <p class="card-text">{{$data[0]['min_ppm']}}-{{$data[0]['max_ppm']}}</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-4">
+         <div class="card text-center">
+            <div class="card-header">
+               Action
+            </div>
+            <div class="card-body">
+               <button type="button" class="btn btn-primary">Akhiri Pengaliran</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="card text-center">
+      <div class="card-header">
+         Deskripsi
+      </div>
+      <div class="card-body">
+      <p class="card-text">{{$data[0]['keterangan']}}</p>
+      </div>
+   </div>
+{{-- </div> --}}
+<br>
+
 @endsection
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />

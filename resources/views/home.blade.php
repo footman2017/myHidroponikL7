@@ -9,92 +9,104 @@
      </div>
    @endif   
 </div>
-{{-- <div class="container"> --}}
-    <div id="PPMgraph">
-       <div class="card">
-         <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-chart-pie mr-1"></i>
-              Kadar PPM
-            </h3>
-            <div class="card-tools">
-             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="realtime">
-                <label class="custom-control-label" for="realtime">Realtime</label>
-              </div>
-            </div>
-          </div><!-- /.card-header -->
-          <div class="card-body">
-            <div class="tab-content p-0">
-              <div class="chart tab-pane active" id="PPM-chart"
-                   style="position: relative; height: auto;">
-                  <canvas id="myChart" height="300" style="height: 1200px;"></canvas>                         
-               </div>
-            </div>
-          </div><!-- /.card-body -->
-       </div>
-    </div>
-
-    <div id="serapanGraph">
+@if (empty($data))
+   <div>
+      <h1>Tidak ada pengaliran yang sedang berjalan</h1>
+   </div>
+@else
+@foreach ($data as $item)
+    {{-- <div class="container"> --}}
+   <div id="PPMgraph">
       <div class="card">
         <div class="card-header">
            <h3 class="card-title">
              <i class="fas fa-chart-pie mr-1"></i>
-             Serapan PPM
+             Kadar PPM
            </h3>
+           <div class="card-tools">
+            <div class="custom-control custom-checkbox">
+               <input type="checkbox" class="custom-control-input" id="realtime">
+               <label class="custom-control-label" for="realtime">Realtime</label>
+             </div>
+           </div>
          </div><!-- /.card-header -->
          <div class="card-body">
            <div class="tab-content p-0">
-             <div class="chart tab-pane active" id="serapans-chart"
-                  style="position: relative; height: auto;">
-                 <canvas id="serapanChart" height="300" style="height: 1200px;"></canvas>                         
+             <div class="chart tab-pane active" id="PPM-chart" style="position: relative; height: auto;">
+                 <canvas id="myChart" height="300" style="height: 1200px;"></canvas>                         
               </div>
            </div>
          </div><!-- /.card-body -->
       </div>
    </div>
-   
-   <div class="row">
-      <div class="col-sm-4">
-         <div class="card text-center">
-            <div class="card-header ">
-               Status
-            </div>
-            <div class="card-body">
-               <p class="card-text">{{$data[0]['status']}}</p>
-            </div>
-         </div>
-      </div>
-      <div class="col-sm-4">
-         <div class="card text-center">
-            <div class="card-header">
-               PPM
-            </div>
-            <div class="card-body">
-               <p class="card-text">{{$data[0]['min_ppm']}}-{{$data[0]['max_ppm']}}</p>
-            </div>
-         </div>
-      </div>
-      <div class="col-sm-4">
-         <div class="card text-center">
-            <div class="card-header">
-               Action
-            </div>
-            <div class="card-body">
-               <button type="button" class="btn btn-primary">Akhiri Pengaliran</button>
-            </div>
-         </div>
-      </div>
-   </div>
-   <div class="card text-center">
-      <div class="card-header">
-         Deskripsi
-      </div>
-      <div class="card-body">
-      <p class="card-text">{{$data[0]['keterangan']}}</p>
-      </div>
-   </div>
+
+   <div id="serapanGraph">
+     <div class="card">
+       <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-chart-pie mr-1"></i>
+            Serapan PPM
+          </h3>
+        </div><!-- /.card-header -->
+        <div class="card-body">
+          <div class="tab-content p-0">
+            <div class="chart tab-pane active" id="serapans-chart"
+                 style="position: relative; height: auto;">
+                <canvas id="serapanChart" height="300" style="height: 1200px;"></canvas>                         
+             </div>
+          </div>
+        </div><!-- /.card-body -->
+     </div>
+  </div>
+  
+  <div class="row">
+     <div class="col-sm-4">
+        <div class="card text-center">
+           <div class="card-header ">
+              Status
+           </div>
+           <div class="card-body">
+              @if ($item->status==1)
+                 <button type="button" class="btn btn-success">Connected</button>
+              @else
+                 <button type="button" class="btn btn-danger">Disconected</button>
+              @endif
+           </div>
+        </div>
+     </div>
+     <div class="col-sm-4">
+        <div class="card text-center">
+           <div class="card-header">
+              PPM
+           </div>
+           <div class="card-body">
+              <p class="card-text">{{$item->min_ppm}}-{{$item->max_ppm}}</p>
+           </div>
+        </div>
+     </div>
+     <div class="col-sm-4">
+        <div class="card text-center">
+           <div class="card-header">
+              Action
+           </div>
+           <div class="card-body">
+              <button type="button" class="btn btn-primary">Akhiri Pengaliran</button>
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="card text-center">
+     <div class="card-header">
+        Deskripsi
+     </div>
+     <div class="card-body">
+     <p class="card-text">{{$item->keterangan}}</p>
+     </div>
+  </div>
 {{-- </div> --}}
+@endforeach
+@endif
+
 <br>
 
 @endsection

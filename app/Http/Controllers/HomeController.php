@@ -26,10 +26,21 @@ class HomeController extends Controller
    public function index()
    {
       $user = Auth::user();
-      $data = Pengaliran::where([
+      // $data = Pengaliran::where([
+      //    ['email', $user->email],
+      //    ['status', 1]
+      // ])->get();
+
+      if(Pengaliran::where([
          ['email', $user->email],
          ['status', 1]
-      ])->get();
+      ])->exists()) {
+          $data = Pengaliran::where([
+            ['email', $user->email],
+            ['status', 1]
+         ])->get();
+      }else $data = 0;
+      // print_r($data);die;
 
       return view('home', compact('data'));
    }

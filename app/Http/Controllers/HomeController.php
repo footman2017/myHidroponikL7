@@ -44,4 +44,11 @@ class HomeController extends Controller
 
       return view('home', compact('data'));
    }
+
+   public function akhiriPengaliran($id){
+      $pengaliran = Pengaliran::find($id);
+      $pengaliran->status = 0;
+      $pengaliran->save();
+      return redirect('/home')->with('success', 'Pengaliran Berhasil Diakhiri');
+   }
 }

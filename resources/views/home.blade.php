@@ -90,7 +90,7 @@
               Action
            </div>
            <div class="card-body">
-              <button type="button" class="btn btn-primary">Akhiri Pengaliran</button>
+           <a id="end_button"  href="/stop/{{$item->id_pengaliran}}" class="btn btn-primary" role="button">Akhiri Pengaliran</a>
            </div>
         </div>
      </div>
@@ -116,6 +116,16 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous"></script>
 <script>
+$('#end_button').click(function (e) { 
+   return confirm("Yakin akan diakhiri ?");
+});
+
+window.setTimeout(function() {
+        $(".alert").fadeTo(300, 0).slideUp(300, function(){
+            $(this).remove(); 
+        });
+}, 2500);
+
 $(document).ready(function() {
       var tanggal = new Array();
       var tanggal_serapan = new Array();

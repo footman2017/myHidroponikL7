@@ -40,12 +40,14 @@
             <td>{{$tanaman->max_ppm}}</td>
             <td>{{$tanaman->keterangan}}</td>
             <td style="text-align: center">
-               @if ($tanaman->status == 0)
-                  <span class="badge badge-primary">Aktif</span>
+               @if ($tanaman->status == 1)
+                  <span class="badge badge-success">Aktif</span>
+               @else
+                  <span class="badge badge-danger">Berakhir</span>
                @endif
             </td>
             <td style="text-align: center">
-               @if ($tanaman->status != 0)
+               @if ($tanaman->status != 1)
                <form action="{{route('pengaliran.destroy',$tanaman->id_pengaliran)}}" method="POST">
                   <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
                   @csrf

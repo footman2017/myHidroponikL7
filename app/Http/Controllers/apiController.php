@@ -26,7 +26,7 @@ class apiController extends Controller
       //    ->get();
 
       $data = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
-      ->select('ppm1', 'ppm2', 'waktu')
+      ->select('pembacaan_sensor.id_pengaliran', 'ppm1', 'ppm2', 'waktu')
       ->where([
          ['email', $user->email],
          ['status', 1]

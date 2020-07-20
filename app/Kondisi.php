@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Kondisi extends Model
 {
+    public $timestamps = false;
     /**
      * The table associated with the model.
      * 
@@ -36,7 +37,7 @@ class Kondisi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_pengaliran', 'foto'];
+    protected $fillable = ['id', 'id_pengaliran', 'foto'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

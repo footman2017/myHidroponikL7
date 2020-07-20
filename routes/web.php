@@ -25,3 +25,4 @@ Route::get('/getDataPPM', 'apiController@requestPPM');
 Route::get('/getLastPPM', 'apiController@requestLastPPM');
 Route::get('/getSerapanPPM', 'apiController@requestSerapanPPM');
 Route::get('/stop/{id}','HomeController@akhiriPengaliran');
+Route::post('/image-upload', 'HomeController@uploadImage')->name('imageUpload');

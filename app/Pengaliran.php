@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pengaliran extends Model
 {
+   public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -51,7 +53,7 @@ class Pengaliran extends Model
     /**
      * @var array
      */
-    protected $fillable = ['email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status', 'tanggal_berakhir'];
+    protected $fillable = ['id_pengaliran', 'email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status', 'tanggal_berakhir'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pengaliran;
+use App\PembacaanSensor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,7 @@ class PengaliranController extends Controller
          'nama_tanaman'=>'required',
          'min_ppm'=>'required',
          'max_ppm'=>'required',
+         'tanggal_berakhir'=>'required',
       ]);
       
       $pengaliran = new Pengaliran([
@@ -51,7 +53,8 @@ class PengaliranController extends Controller
          'min_ppm' => $request->get('min_ppm'),
          'max_ppm' => $request->get('max_ppm'),
          'email' => Auth::user()->email,
-         'status' => 0
+         'status' => 1,
+         'tanggal_berakhir' => $request->get('tanggal_berakhir')
       ]);
 
       $pengaliran->save();
@@ -102,8 +105,10 @@ class PengaliranController extends Controller
     public function destroy($id)
     { 
       // echo $pengaliran;die;
-      $pengaliran = Pengaliran::find($id);
-      $pengaliran->delete();
+      $dataSensor = PembacaanSensor::where('id_pengaliran', $id);
+      $dataSensor->delete();
+      Pengaliran::destroy($id);
+      // $pengaliran->delete();
       return redirect()->route('pengaliran.index')->with('success','pengaliran deleted successfully');
     }
 }

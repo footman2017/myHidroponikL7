@@ -20,10 +20,10 @@
          </div>
       </div>
    </div>
-   {{-- <div class="form-group">
-      <label for="tanggal_tanam">Tanggal Tanam</label>
-      <input class="form-control" type="text" id="tanggal_tanam" name="tanggal_tanam"  placeholder="08/04/2020" required>
-   </div> --}}
+   <div class="form-group">
+      <label for="tanggal_tanam">Tanggal Berakhir</label>
+      <input class="form-control" type="text" id="tanggal_tanam" name="tanggal_berakhir"  placeholder="08/04/2020" required>
+   </div>
    <div class="form-group">
       <label for="keterangan">Keterangan</label>
       <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>

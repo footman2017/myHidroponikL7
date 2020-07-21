@@ -25,8 +25,8 @@
       <input class="form-control" type="text" id="tanggal_tanam" name="tanggal_berakhir"  placeholder="08/04/2020" required>
    </div>
    <div class="form-group">
-      <label for="keterangan">Keterangan</label>
-      <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+      <label for="deskripsi">Deskripsi Pengaliran</label>
+      <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
    </div>
    <button type="submit" class="btn btn-primary">Submit</button>
 </form>

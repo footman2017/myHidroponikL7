@@ -49,12 +49,12 @@ class PengaliranController extends Controller
          'id_pengaliran' => uniqid(),
          'nama_tanaman' => $request->get('nama_tanaman'),
          'tanggal_tanam' => date('d-m-yy'),
-         'keterangan' => $request->get('keterangan'),
+         'deskripsi' => $request->get('deskripsi'),
          'min_ppm' => $request->get('min_ppm'),
          'max_ppm' => $request->get('max_ppm'),
          'email' => Auth::user()->email,
          'status' => 1,
-         'tanggal_berakhir' => $request->get('tanggal_berakhir')
+         'tanggal_berakhir' => $request->get('tanggal_berakhir'),
       ]);
 
       $pengaliran->save();

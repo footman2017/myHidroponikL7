@@ -53,7 +53,7 @@ class Pengaliran extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id_pengaliran', 'email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status', 'tanggal_berakhir'];
+    protected $fillable = ['id_pengaliran', 'email', 'nama_tanaman', 'tanggal_tanam', 'keterangan', 'min_ppm', 'max_ppm', 'status', 'tanggal_berakhir', 'deskripsi'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

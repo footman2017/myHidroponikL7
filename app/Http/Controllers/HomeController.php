@@ -43,12 +43,12 @@ class HomeController extends Controller
       }else $data = 0;
       // print_r($data);die;
 
-      return view('home', compact('data'));
+      return view('home', ['data' => $data]);
    }
 
    public function akhiriPengaliran($id){
       $pengaliran = Pengaliran::find($id);
-      return view('pengaliran.update', compact('pengaliran'));
+      return view('pengaliran.update', ['pengaliran' => $pengaliran]);
    }
 
    public function uploadImage(Request $request){

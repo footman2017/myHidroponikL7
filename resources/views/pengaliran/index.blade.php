@@ -8,9 +8,13 @@
       {{ session()->get('success') }}  
    </div>
 @endif
+
+@if($thereIsPengaliran != 1)
 <div>
    <a class="btn btn-primary" href="{{ route('pengaliran.create') }}" role="button">Tambah Pengaliran</a>
 </div>
+@endif
+
 <br>
 
 <div class="table-responsive">

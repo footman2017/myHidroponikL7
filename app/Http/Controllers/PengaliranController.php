@@ -16,8 +16,19 @@ class PengaliranController extends Controller
      */
     public function index()
     {
+      $thereIsPengaliran = 0;
       $pengaliran = Pengaliran::all();
-      return view('pengaliran.index', compact('pengaliran'));
+      
+      foreach ($pengaliran as $row) {  
+         if ($row->status == 1) {      //pengecekan apakan ada pengaliran yang aktif
+            $thereIsPengaliran = 1;
+            break;
+         }
+      }
+
+      // print_r($thereIsPengaliran);die;
+
+      return view('pengaliran.index', ['pengaliran' => $pengaliran, 'thereIsPengaliran' => $thereIsPengaliran]);
     }
 
     /**

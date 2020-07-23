@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $max_ppm
  * @property integer $status
  * @property string $tanggal_berakhir
+ * @property string $deskripsi
  * @property User $user
  * @property PembacaanSensor[] $pembacaanSensors
  * @property Kondisi[] $kondisis

@@ -26,7 +26,7 @@
           <th scope="col">Tanggal Tanam</th>
           <th scope="col">Min PPM</th>
           <th scope="col">Max PPM</th>
-          <th scope="col">Keterangan</th>
+          {{-- <th scope="col">Keterangan</th> --}}
           <th scope="col">Status</th>
           <th scope="col">Aksi</th>
         </tr>
@@ -42,7 +42,7 @@
             <td>{{$tanaman->tanggal_tanam}}</td>
             <td>{{$tanaman->min_ppm}}</td>
             <td>{{$tanaman->max_ppm}}</td>
-            <td>{{$tanaman->keterangan}}</td>
+            {{-- <td>{{$tanaman->keterangan}}</td> --}}
             <td style="text-align: center">
                @if ($tanaman->status == 1)
                   <span class="badge badge-success">Aktif</span>
@@ -59,7 +59,7 @@
                   <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                </form>
                @else
-               <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
+               <a class="btn btn-info btn-sm" href="{{route('pengaliran.show', $tanaman)}}">Show</a>
                <button type="submit" class="btn btn-danger btn-sm" disabled>Delete</button>
                @endif
                

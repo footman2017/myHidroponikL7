@@ -45,12 +45,27 @@ class apiController extends Controller
    }
 
    public function requestSerapanPPM(){
+      $user = Auth::user();
       $results = DB::select('
-         select DATE(waktu) as tanggal, (sum(ppm1) - sum(ppm2)) as selisih
+         select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2)) as selisih, pembacaan_sensor.id_pengaliran
          from pembacaan_sensor
-         group by tanggal
-         ORDER BY tanggal ASC'
-      );
+         left join pengaliran on pengaliran.id_pengaliran = pembacaan_sensor.id_pengaliran
+         where email = :emailUser and status = 1
+         group by tanggal, pembacaan_sensor.id_pengaliran
+         order by tanggal asc
+      ', ['emailUser' => $user->email]);
+
+      return response()->json($results);
+   }
+
+   public function requestSerapanPPMbyId(Request $request){
+      $results = DB::select('
+         select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2)) as selisih
+         from pembacaan_sensor
+         where id_pengaliran = :id
+         group by tanggal, pembacaan_sensor.id_pengaliran
+         order by tanggal asc
+      ', ['id' => $request->get('id')]);
 
       return response()->json($results);
    }

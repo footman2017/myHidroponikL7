@@ -76,7 +76,6 @@
 @section('css')
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />
-
 @stop
 
 @section('js')
@@ -126,6 +125,11 @@
                }
             });
          }
+      });
+          
+      $('.img-thumbnail').on('click', function () { 
+         var image = $(this).attr('src');
+         window.open(image);
       });
    });
 </script>

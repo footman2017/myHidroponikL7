@@ -133,11 +133,17 @@ class PengaliranController extends Controller
      */
     public function destroy($id)
     { 
-      // echo $pengaliran;die;
       $dataSensor = PembacaanSensor::where('id_pengaliran', $id);
       $dataSensor->delete();
+
+      $dataFoto = Kondisi::where('id_pengaliran', $id)->get();
+      
+      foreach ($dataFoto as $item) {
+         if(file_exists($item->image_path)) unlink($item->image_path);
+         $item->delete();
+      }
+
       Pengaliran::destroy($id);
-      // $pengaliran->delete();
       return redirect()->route('pengaliran.index')->with('success','pengaliran deleted successfully');
     }
 }

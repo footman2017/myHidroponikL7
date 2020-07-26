@@ -120,9 +120,33 @@ class PengaliranController extends Controller
      * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pengaliran $pengaliran)
+    public function update(Request $request)
     {
-        //
+      $request->validate([
+         'nama_tanaman'=>'required',
+         'imageFile.*' => 'mimes:jpg,png,jpeg,gif'
+      ]);
+      
+      $pengaliran = Pengaliran::find($request->get('id_pengaliran'));
+      $pengaliran->nama_tanaman = $request->get('nama_tanaman');
+      $pengaliran->deskripsi = $request->get('deskripsi');
+      $pengaliran->keterangan = $request->get('keterangan');
+      $pengaliran->save();
+
+      if($request->hasfile('imageFile')) {
+         foreach ($request->file('imageFile') as $file) {
+            $fileName = time().'_'.$file->getClientOriginalName();
+            $filePath = $file->move(public_path().'/files/', $fileName);
+            
+            $fileModel = new Kondisi;
+            $fileModel->id = uniqid();
+            $fileModel->id_pengaliran = $request->get('id_pengaliran');
+            $fileModel->nama_foto = $fileName;
+            $fileModel->image_path = $filePath;
+            $fileModel->save();
+         }
+      }
+      return redirect('/pengaliran')->with('success', 'Pengaliran saved!');
     }
 
     /**

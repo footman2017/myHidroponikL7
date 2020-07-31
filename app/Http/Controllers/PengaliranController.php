@@ -84,17 +84,13 @@ class PengaliranController extends Controller
     public function show(Pengaliran $pengaliran)
     {
       $totalSerapan = DB::select('
-         select sum(ppm1) - sum(ppm2) as total_serapan
+         select (sum(ppm1) - sum(ppm2))/count(*) as total_serapan
          from pembacaan_sensor
          where id_pengaliran = :id
       ', ['id' => $pengaliran->id_pengaliran]);
 
       $foto = Kondisi::where('id_pengaliran', $pengaliran->id_pengaliran)->get();
-      // foreach ($foto as $data) {
-      //    print_r($data->image_path);
-      // }
-      // die;
-      // print_r($foto);die;
+      
       return view('pengaliran.detail', [
          'pengaliran' => $pengaliran, 
          'totalSerapan' => $totalSerapan, 

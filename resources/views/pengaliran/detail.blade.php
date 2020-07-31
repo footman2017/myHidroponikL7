@@ -35,7 +35,7 @@
       </div>
    </div>
    <div class="form-group row">
-      <label for="totalSerapan" class="col-sm-2 col-form-label">Total Serapan Nutrisi</label>
+      <label for="totalSerapan" class="col-sm-2 col-form-label">Rata - Rata Serapan Nutrisi</label>
       <div class="col-sm-10">
          <input type="text" readonly class="form-control-plaintext" id="totalSerapan" value="{{$totalSerapan[0]->total_serapan}} PPM">
       </div>

@@ -156,7 +156,7 @@ $(document).ready(function() {
          // data: {ggwp:2},
          dataType: 'json',
          success:function(response){
-            console.log(response);
+            // console.log(response);
             response.forEach(function(data){
                time = data.waktu.split(' ');
                // console.log(time[0]);
@@ -210,15 +210,6 @@ $(document).ready(function() {
                         }
                      });
 
-                     // var waktu = new Date();
-                     // var tahun = waktu.getFullYear();
-                     // var bulan = waktu.getMonth();
-                     // var tanggal = waktu.getDate();
-                     // var jam = waktu.getHours();
-                     // var menit = waktu.getMinutes();
-                     // var detik = waktu.getSeconds();
-                     // addData(myChart, ""+tahun+"-"+bulan+"-"+tanggal+" "+jam+":"+menit+":"+detik+"", (Math.floor(Math.random() * 14) + 0));
-                     // removeData(myChart);
                   }, 1000);      
                }else{
                   console.log(refreshIntervalId);
@@ -234,19 +225,20 @@ $(document).ready(function() {
          // data: {ggwp:2},
          dataType: 'json',
          success:function(response){
-            console.log(response);
+            // console.log(response);
             response.forEach(function(data){
-               tanggal_serapan.push(data.tanggal);
+               time = data.tanggal.split(' ');
+               tanggal_serapan.push(time[1]);
                selisih.push(data.selisih);
             });
             var ctx_serapan = document.getElementById("serapanChart").getContext('2d');
             var serapanChart = new Chart(ctx_serapan, {
                type: 'line',
                data: {
-                  labels:tanggal_serapan,
+                  labels:tanggal_serapan.reverse(),
                   datasets: [{
                      label: 'Serapan PPM',
-                     data: selisih,
+                     data: selisih.reverse(),
                      borderWidth: 2,
                      fill : false,
                      backgroundColor : '##00cccc',

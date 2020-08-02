@@ -47,6 +47,12 @@
             <i class="fas fa-chart-pie mr-1"></i>
             Serapan PPM
           </h3>
+          <div class="card-tools">
+            <div class="custom-control custom-checkbox">
+               <input type="checkbox" class="custom-control-input" id="realtime_serapan">
+               <label class="custom-control-label" for="realtime_serapan">Realtime</label>
+             </div>
+           </div>
         </div><!-- /.card-header -->
         <div class="card-body">
           <div class="tab-content p-0">
@@ -258,8 +264,36 @@ $(document).ready(function() {
                   }
                }
             });
+
+            $('#realtime_serapan').change(function() {
+               if(this.checked) {
+                  refreshIntervalIdSerapan = setInterval(function(){
+                     $.ajax({
+                        url: "{{url('/getLastSerapan')}}",
+                        type: 'get',
+                        // data: {ggwp:2},
+                        dataType: 'json',
+                        success:
+                        function(response){
+                           time = response.waktu.split(' ');
+                           console.log(time[1]);
+                           if(tanggal_serapan[tanggal_serapan.length-1] != time[1]){
+                              addData(serapanChart, time[1], response.selisih);
+                              removeData(serapanChart);
+                           }
+                        }
+                     });
+
+                  }, 1000);      
+               }else{
+                  console.log(refreshIntervalIdSerapan);
+                  clearInterval(refreshIntervalIdSerapan);
+               }
+            });
          }
       });
+
+      
    
    });
 </script>

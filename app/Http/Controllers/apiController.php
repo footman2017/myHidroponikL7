@@ -44,6 +44,11 @@ class apiController extends Controller
       return response()->json($data);
    }
 
+   public function requestLastSerapan(){
+      $data = PembacaanSensor::latest('waktu')->selectRaw('ppm1-ppm2 as selisih, waktu')->first();
+      return response()->json($data);
+   }
+
    public function requestSerapanPPM(){
       $user = Auth::user();
       $results = DB::select('

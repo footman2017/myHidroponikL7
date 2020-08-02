@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('pengaliran', 'PengaliranController');
 Route::get('/getDataPPM', 'apiController@requestPPM');
 Route::get('/getLastPPM', 'apiController@requestLastPPM');
+Route::get('/getLastSerapan', 'apiController@requestLastSerapan');
 Route::get('/getSerapanPPM', 'apiController@requestSerapanPPM');
 Route::get('/getSerapanPPMbyId', 'apiController@requestSerapanPPMbyId');
 Route::get('/stop/{id}','HomeController@akhiriPengaliran');

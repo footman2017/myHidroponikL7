@@ -231,7 +231,6 @@ $(document).ready(function() {
          // data: {ggwp:2},
          dataType: 'json',
          success:function(response){
-            // console.log(response);
             response.forEach(function(data){
                time = data.tanggal.split(' ');
                tanggal_serapan.push(time[1]);
@@ -256,9 +255,6 @@ $(document).ready(function() {
                      yAxes: [{
                         ticks: {
                            beginAtZero:true,
-                           // suggestedMin: 0,
-                           // suggestedMax: 14,
-                           // stepSize: 2
                         }
                      }]
                   }

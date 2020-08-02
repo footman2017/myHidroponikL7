@@ -65,10 +65,10 @@ class apiController extends Controller
 
    public function requestSerapanPPMbyId(Request $request){
       $results = DB::select('
-         select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2)) as selisih
+         select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2))/count(*) as selisih, sum(ppm1)/count(*) as "ppm1", sum(ppm2)/count(*) as "ppm2"
          from pembacaan_sensor
          where id_pengaliran = :id
-         group by tanggal, pembacaan_sensor.id_pengaliran
+         group by tanggal
          order by tanggal asc
       ', ['id' => $request->get('id')]);
 

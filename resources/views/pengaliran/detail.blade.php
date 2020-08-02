@@ -40,23 +40,52 @@
          <input type="text" readonly class="form-control-plaintext" id="totalSerapan" value="{{$totalSerapan[0]->total_serapan}} PPM">
       </div>
    </div>
-   <div>
-      <div id="serapanGraph">
-         <div class="card">
-           <div class="card-header">
-              <h3 class="card-title">
-                <i class="fas fa-chart-pie mr-1"></i>
-                Serapan PPM
-              </h3>
-            </div><!-- /.card-header -->
-            <div class="card-body">
-              <div class="tab-content p-0">
-                <div class="chart tab-pane active" id="serapans-chart"
-                     style="position: relative; height: auto;">
-                    <canvas id="serapanChart" height="300" style="height: 1200px;"></canvas>                         
-                 </div>
-              </div>
-            </div><!-- /.card-body -->
+   <div class="row">
+      <div class="col-4">
+         <div id="serapanGraph">
+            <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">
+                   <i class="fas fa-chart-pie mr-1"></i>
+                   Selisih PPM pada bak dan ujung pipa
+                 </h3>
+               </div><!-- /.card-header -->
+               <div class="card-body">
+                  <canvas id="serapanChart" height="300" width="auto" style=""></canvas>                         
+               </div><!-- /.card-body -->
+            </div>
+         </div>
+      </div>
+
+      <div class="col-4">
+         <div id="ppm1Graph">
+            <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">
+                   <i class="fas fa-chart-pie mr-1"></i>
+                   PPM Pada Bak Penampungan
+                 </h3>
+               </div><!-- /.card-header -->
+               <div class="card-body">
+                  <canvas id="ppm1Chart" height="300" width="auto" style=""></canvas>                         
+               </div><!-- /.card-body -->
+            </div>
+         </div>
+      </div>
+
+      <div class="col-4">
+         <div id="serapanGraph">
+            <div class="card">
+              <div class="card-header">
+                 <h3 class="card-title">
+                   <i class="fas fa-chart-pie mr-1"></i>
+                   PPM pada Ujung Pipa
+                 </h3>
+               </div><!-- /.card-header -->
+               <div class="card-body">
+                  <canvas id="ppm2Chart" height="300" width="auto" style=""></canvas>                         
+               </div><!-- /.card-body -->
+            </div>
          </div>
       </div>
    </div>
@@ -84,6 +113,8 @@
    $(document).ready(function () {
       var tanggal_serapan = new Array();
       var selisih = new Array();
+      var ppm1 = new Array();
+      var ppm2 = new Array();
       var idPengaliran = $('#idPengaliran').val();
       
       $.ajax({
@@ -96,6 +127,8 @@
             response.forEach(function(data){
                tanggal_serapan.push(data.tanggal);
                selisih.push(data.selisih);
+               ppm1.push(data.ppm1);
+               ppm2.push(data.ppm2);
             });
             var ctx_serapan = document.getElementById("serapanChart").getContext('2d');
             var serapanChart = new Chart(ctx_serapan, {
@@ -103,22 +136,105 @@
                data: {
                   labels:tanggal_serapan,
                   datasets: [{
-                     label: 'Serapan PPM',
+                     label: 'Selisih',
                      data: selisih,
-                     borderWidth: 2,
+                     borderWidth: 1,
                      fill : false,
-                     backgroundColor : '##00cccc',
-                     borderColor : '#00ffff'
+                     backgroundColor : 'black',
+                     borderColor : 'black',
+                     // pointBackgroundColor : '#00ffff',
+                     // pointBorderWidth : 1,
+                     pointRadius : 1,
+                     borderCapStyle : 'square'
                   }]
                },
                options: {
+                  layout : {
+                     padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                     }
+                  },
                   scales: {
                      yAxes: [{
                         ticks: {
                            beginAtZero:true,
-                           // suggestedMin: 0,
-                           // suggestedMax: 14,
-                           // stepSize: 2
+                        }
+                     }]
+                  }
+               }
+            });
+
+            var ctx_ppm1 = document.getElementById("ppm1Chart").getContext('2d');
+            var ppm1Chart = new Chart(ctx_ppm1, {
+               type: 'line',
+               data: {
+                  labels:tanggal_serapan,
+                  datasets: [{
+                     label: 'PPM Pada Bak Penampungan',
+                     data: ppm1,
+                     borderWidth: 1,
+                     fill : false,
+                     backgroundColor : 'black',
+                     borderColor : 'black',
+                     // pointBackgroundColor : '#00ffff',
+                     // pointBorderWidth : 1,
+                     pointRadius : 1,
+                     borderCapStyle : 'square'
+                  }]
+               },
+               options: {
+                  layout : {
+                     padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                     }
+                  },
+                  scales: {
+                     yAxes: [{
+                        ticks: {
+                           beginAtZero:true,
+                        }
+                     }]
+                  }
+               }
+            });
+
+            var ctx_ppm2 = document.getElementById("ppm2Chart").getContext('2d');
+            var ppm2Chart = new Chart(ctx_ppm2, {
+               type: 'line',
+               data: {
+                  labels:tanggal_serapan,
+                  datasets: [{
+                     label: 'PPM Pada Ujung Pipa',
+                     data: ppm2,
+                     borderWidth: 1,
+                     fill : false,
+                     backgroundColor : 'black',
+                     borderColor : 'black',
+                     // pointBackgroundColor : '#00ffff',
+                     // pointBorderWidth : 1,
+                     pointRadius : 1,
+                     borderCapStyle : 'square'
+                  }]
+               },
+               options: {
+                  layout : {
+                     padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                     }
+                  },
+                  scales: {
+                     yAxes: [{
+                        ticks: {
+                           beginAtZero:true,
                         }
                      }]
                   }

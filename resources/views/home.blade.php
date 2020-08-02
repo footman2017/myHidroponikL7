@@ -137,14 +137,20 @@ $(document).ready(function() {
       var tanggal_serapan = new Array();
       var time;
       var nilai = new Array();
+      var nilai2 = new Array();
       var selisih = new Array();
       var refreshIntervalId;
+      var arrPPMupdate = new Array();
       
       function addData(chart, label, data) {
+         var i = 0;
          chart.data.labels.push(label);
          chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data);
+            dataset.data.push(data[i]);
+            i++;
          });
+         // chart.data.datasets[0].data.push(data[0]);
+         // chart.data.datasets[1].data.push(data[1]);
          chart.update();
       }
 
@@ -165,23 +171,33 @@ $(document).ready(function() {
             // console.log(response);
             response.forEach(function(data){
                time = data.waktu.split(' ');
-               // console.log(time[0]);
                tanggal.push(time[1]);
                nilai.push(data.ppm1);
+               nilai2.push(data.ppm2);
             });
             var ctx = document.getElementById("myChart").getContext('2d');
             var myChart = new Chart(ctx, {
                type: 'line',
                data: {
                   labels:tanggal.reverse(),
-                  datasets: [{
-                     label: 'PPM',
+                  datasets: [
+                  {
+                     label: 'PPM Pada Bak penampung',
                      data: nilai.reverse(),
                      borderWidth: 2,
                      fill : false,
                      backgroundColor : '##00cccc',
                      borderColor : '#00ffff'
-                  }]
+                  },
+                  {
+                     label: 'PPM Pada Ujung Pipa',
+                     data: nilai2.reverse(),
+                     borderWidth: 2,
+                     fill : false,
+                     backgroundColor : 'black',
+                     borderColor : 'black'
+                  },
+                  ]
                },
                options: {
                   scales: {
@@ -208,9 +224,9 @@ $(document).ready(function() {
                         success:
                         function(response){
                            time = response.waktu.split(' ');
-                           console.log(time[1]);
+                           arrPPMupdate = [response.ppm1, response.ppm2];
                            if(tanggal[tanggal.length-1] != time[1]){
-                              addData(myChart, time[1], response.ppm1);
+                              addData(myChart, time[1], arrPPMupdate);
                               removeData(myChart);
                            }
                         }

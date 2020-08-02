@@ -40,7 +40,14 @@ class apiController extends Controller
    }
 
    public function requestLastPPM(){
-      $data = PembacaanSensor::latest('waktu')->first();
+      $user = Auth::user();
+      $data = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
+      ->latest('waktu')
+      ->where([
+         ['email', $user->email],
+         ['status', 1]
+      ])
+      ->first();
       return response()->json($data);
    }
 

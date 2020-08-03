@@ -82,4 +82,19 @@ class apiController extends Controller
       return response()->json($results);
    }
 
+   //********************//
+   //KALO MAU YG SEMUANYA//
+   //********************//
+   
+   // public function requestAllSerapanPPMbyId(Request $request){
+   //    $results = DB::select('
+   //       select waktu as tanggal, (ppm1 - ppm2) as selisih
+   //       from pembacaan_sensor
+   //       where id_pengaliran = :id
+   //       order by tanggal asc
+   //    ', ['id' => $request->get('id')]);
+
+   //    return response()->json($results);
+   // }
+
 }

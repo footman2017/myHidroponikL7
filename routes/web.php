@@ -26,6 +26,7 @@ Route::get('/getLastPPM', 'apiController@requestLastPPM');
 Route::get('/getLastSerapan', 'apiController@requestLastSerapan');
 Route::get('/getSerapanPPM', 'apiController@requestSerapanPPM');
 Route::get('/getSerapanPPMbyId', 'apiController@requestSerapanPPMbyId');
+Route::get('/getAllSerapanPPMbyId', 'apiController@requestAllSerapanPPMbyId');
 Route::get('/stop/{id}','HomeController@akhiriPengaliran');
 Route::post('/image-upload', 'HomeController@uploadImage')->name('imageUpload');
 Route::post('/sunting','PengaliranController@update')->name('Sunting');

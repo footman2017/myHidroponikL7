@@ -89,6 +89,25 @@
          </div>
       </div>
    </div>
+
+   {{-- //********************//
+   //KALO MAU YG SEMUANYA//
+   //********************// --}}
+   
+   {{-- <div>
+      <div class="card">
+         <div class="card-header">
+            <h3 class="card-title">
+               <i class="fas fa-chart-pie mr-1"></i>
+               Selisih PPM pada bak dan ujung pipa
+            </h3>
+         </div><!-- /.card-header -->
+         <div class="card-body">
+            <canvas id="AllserapanChart" height="auto" width="auto" style=""></canvas>                         
+         </div><!-- /.card-body -->
+      </div>
+   </div> --}}
+
    <div class="form-group">
       <label for="keterangan">Keterangan</label>
       <textarea class="form-control-plaintext" readonly id="keterangan" name="keterangan" rows="3">{{$pengaliran->keterangan}}</textarea>
@@ -113,6 +132,8 @@
    $(document).ready(function () {
       var tanggal_serapan = new Array();
       var selisih = new Array();
+      var tanggal_serapanAll = new Array();
+      var selisihAll = new Array();
       var ppm1 = new Array();
       var ppm2 = new Array();
       var idPengaliran = $('#idPengaliran').val();
@@ -242,6 +263,62 @@
             });
          }
       });
+
+
+      //********************//
+      //KALO MAU YG SEMUANYA//
+      //********************//
+
+
+      // $.ajax({
+      //    url: "{{url('/getAllSerapanPPMbyId')}}",
+      //    type: 'get',
+      //    data: {id:idPengaliran},
+      //    dataType: 'json',
+      //    success: function (response) {
+      //       console.log(response);
+      //       response.forEach(function(data){
+      //          tanggal_serapanAll.push(data.tanggal);
+      //          selisihAll.push(data.selisih);
+      //       });
+      //       var ctx_serapan = document.getElementById("AllserapanChart").getContext('2d');
+      //       var serapanChart = new Chart(ctx_serapan, {
+      //          type: 'line',
+      //          data: {
+      //             labels:tanggal_serapanAll,
+      //             datasets: [{
+      //                label: 'Selisih',
+      //                data: selisihAll,
+      //                borderWidth: 1,
+      //                fill : false,
+      //                backgroundColor : 'black',
+      //                borderColor : 'black',
+      //                // pointBackgroundColor : '#00ffff',
+      //                // pointBorderWidth : 1,
+      //                pointRadius : 1,
+      //                borderCapStyle : 'square'
+      //             }]
+      //          },
+      //          options: {
+      //             layout : {
+      //                padding: {
+      //                   left: 0,
+      //                   right: 0,
+      //                   top: 0,
+      //                   bottom: 0
+      //                }
+      //             },
+      //             scales: {
+      //                yAxes: [{
+      //                   ticks: {
+      //                      beginAtZero:true,
+      //                   }
+      //                }]
+      //             }
+      //          }
+      //       });
+      //    }
+      // });
           
       $('.img-thumbnail').on('click', function () { 
          var image = $(this).attr('src');

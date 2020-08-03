@@ -28,13 +28,13 @@
    <div class="form-group">
       <label for="#">Upload Foto</label>
       <div class="custom-file">
-         <input type="file" name="imageFile[]" class="custom-file-input" id="imageFile" multiple="multiple">
+         <input type="file" name="imageFile[]" class="custom-file-input" id="imageFile" multiple="multiple" required>
          <label class="custom-file-label" for="imageFile">Choose image</label>
       </div>
    </div>
    <div class="form-group">
       <label for="keterangan">Keterangan</label>
-      <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+      <textarea class="form-control" id="keterangan" name="keterangan" rows="3" required></textarea>
    </div>
    <button type="submit" class="btn btn-primary">Akhiri</button>
 </form>

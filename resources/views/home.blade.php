@@ -106,7 +106,7 @@
         Deskripsi
      </div>
      <div class="card-body">
-     <p class="card-text">{{$item->keterangan}}</p>
+     <p class="card-text">{{$item->deskripsi}}</p>
      </div>
   </div>
   <div class="card border-primary">

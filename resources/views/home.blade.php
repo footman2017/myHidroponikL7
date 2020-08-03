@@ -109,6 +109,39 @@
      <p class="card-text">{{$item->keterangan}}</p>
      </div>
   </div>
+  <div class="card border-primary">
+    <img class="card-img-top" src="holder.js/100px180/" alt="">
+    <div class="card-body">
+      <div class="table-responsive">
+         <table id="table_tanaman" class="table table-striped" data-page-length='5'>
+            <thead style="text-align: center">
+            <tr>
+               <th colspan="3">Riwayat Pengaliran</th>
+            </tr>
+            <tr>
+               <th scope="col">Deskripsi</th>
+               <th scope="col">PPM</th>
+               <th scope="col">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+               @php
+                  $i = 1;
+               @endphp
+               @foreach ($dataPengaliran as $tanaman)
+               <tr>
+                  <td>{{$tanaman->deskripsi}}</td>
+                  <td align="center">{{$tanaman->min_ppm}} - {{$tanaman->max_ppm}}</td>
+                  <td align="center">
+                     <a class="btn btn-info btn-sm" href="{{route('pengaliran.show', $tanaman)}}">Show</a>
+                  </td>
+               </tr>
+               @endforeach
+            </tbody>
+         </table>
+      </div>
+    </div>
+  </div>
 {{-- </div> --}}
 @endforeach
 @endif

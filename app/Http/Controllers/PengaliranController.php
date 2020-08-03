@@ -18,8 +18,9 @@ class PengaliranController extends Controller
      */
     public function index()
     {
+      $user = Auth::user();
       $thereIsPengaliran = 0;
-      $pengaliran = Pengaliran::all();
+      $pengaliran = Pengaliran::where('email', $user->email)->get();
       
       foreach ($pengaliran as $row) {  
          if ($row->status == 1) {      //pengecekan apakan ada pengaliran yang aktif

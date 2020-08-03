@@ -27,11 +27,6 @@ class HomeController extends Controller
    public function index()
    {
       $user = Auth::user();
-      // $data = Pengaliran::where([
-      //    ['email', $user->email],
-      //    ['status', 1]
-      // ])->get();
-
       if(Pengaliran::where([
          ['email', $user->email],
          ['status', 1]
@@ -41,9 +36,14 @@ class HomeController extends Controller
             ['status', 1]
          ])->get();
       }else $data = 0;
-      // print_r($data);die;
 
-      return view('home', ['data' => $data]);
+      $pengaliran = Pengaliran::where('email', $user->email)->get();
+
+      return view('home', 
+      [
+         'data' => $data,
+         'dataPengaliran' => $pengaliran
+      ]);
    }
 
    public function akhiriPengaliran($id){

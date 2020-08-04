@@ -52,8 +52,19 @@ class apiController extends Controller
    }
 
    public function requestLastSerapan(){
-      $data = PembacaanSensor::latest('waktu')->selectRaw('ppm1-ppm2 as selisih, waktu')->first();
-      return response()->json($data);
+      // $data = PembacaanSensor::latest('waktu')->selectRaw('ppm1-ppm2 as selisih, waktu')->first();
+      // return response()->json($data);
+      $user = Auth::user();
+      $results = DB::select('
+         select waktu, (ppm1 - ppm2) as selisih
+         from pembacaan_sensor
+         left join pengaliran on pengaliran.id_pengaliran = pembacaan_sensor.id_pengaliran
+         where email = :emailUser and status = 1
+         order by waktu desc
+         limit 1
+      ', ['emailUser' => $user->email]);
+
+      return response()->json($results);
    }
 
    public function requestSerapanPPM(){

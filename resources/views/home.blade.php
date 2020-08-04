@@ -179,8 +179,13 @@ $(document).ready(function() {
          var i = 0;
          chart.data.labels.push(label);
          chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data[i]);
-            i++;
+            if(Array.isArray(data)){
+               dataset.data.push(data[i]);
+               i++;
+            }else{
+               dataset.data.push(data);
+            }
+            
          });
          // chart.data.datasets[0].data.push(data[0]);
          // chart.data.datasets[1].data.push(data[1]);
@@ -320,10 +325,10 @@ $(document).ready(function() {
                         dataType: 'json',
                         success:
                         function(response){
-                           time = response.waktu.split(' ');
-                           console.log(time[1]);
+                           time = response[0].waktu.split(' ');
+                           // console.log(response[0]);
                            if(tanggal_serapan[tanggal_serapan.length-1] != time[1]){
-                              addData(serapanChart, time[1], response.selisih);
+                              addData(serapanChart, time[1], response[0].selisih);
                               removeData(serapanChart);
                            }
                         }

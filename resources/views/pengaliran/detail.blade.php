@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Tambah Tanaman')
+@section('title', 'Detail')
 @section('content')
 <h3>Detail pengaliran {{$pengaliran->nama_tanaman}}</h3>
 <form>

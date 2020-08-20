@@ -27,74 +27,18 @@
 <br>
 
 <div class="table-responsive">
-   <table id="table_tanaman" class="table table-striped" data-page-length='5'>
+   <table id="table_tanaman" class="table table-striped" style="width:100%">
       <thead style="text-align: center">
         <tr>
-          <th scope="col">No</th>
+          {{-- <th scope="col">No</th> --}}
           <th scope="col">Nama Tanaman</th>
           <th scope="col">Tanggal Tanam</th>
           <th scope="col">Min PPM</th>
           <th scope="col">Max PPM</th>
-          {{-- <th scope="col">Keterangan</th> --}}
           <th scope="col">Status</th>
           <th scope="col">Aksi</th>
         </tr>
       </thead>
-      <tbody>
-         @php
-             $i = 1;
-         @endphp
-         @foreach ($pengaliran as $tanaman)
-         <tr>
-            <td scope="row">{{ $i++ }}</td>
-            <td>{{$tanaman->nama_tanaman}}</td>
-            <td>{{$tanaman->tanggal_tanam}}</td>
-            <td>{{$tanaman->min_ppm}}</td>
-            <td>{{$tanaman->max_ppm}}</td>
-            {{-- <td>{{$tanaman->keterangan}}</td> --}}
-            <td style="text-align: center">
-               @if ($tanaman->status == 1)
-                  <span class="badge badge-success">Aktif</span>
-               @else
-                  <span class="badge badge-danger">Berakhir</span>
-               @endif
-            </td>
-            <td style="text-align: center">
-               @if ($tanaman->status != 1)
-                  <a class="btn btn-info btn-sm" href="{{route('pengaliran.show',$tanaman)}}">Show</a>
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" 
-                     data-id_pengaliran="{{$tanaman->id_pengaliran}}"
-                     data-nama="{{$tanaman->nama_tanaman}}"
-                     data-deskripsi="{{$tanaman->deskripsi}}"
-                     data-ppm="{{$tanaman->min_ppm}} - {{$tanaman->max_ppm}} PPM"
-                     data-tanggal_awal="{{$tanaman->tanggal_tanam}}"
-                     data-tanggal_akhir="{{$tanaman->tanggal_berakhir}}"
-                     data-keterangan="{{$tanaman->keterangan}}"
-                     data-status="{{$tanaman->status}}"
-                  >
-                     Edit
-                   </button>
-                  <a class="btn btn-danger btn-sm" href="/deletePengaliran/{{$tanaman->id_pengaliran}}">Delete</a>
-               @else
-               <a class="btn btn-info btn-sm" href="{{route('pengaliran.show', $tanaman)}}">Show</a>
-               <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit" 
-                  data-id_pengaliran="{{$tanaman->id_pengaliran}}"
-                  data-nama="{{$tanaman->nama_tanaman}}"
-                  data-deskripsi="{{$tanaman->deskripsi}}"
-                  data-ppm="{{$tanaman->min_ppm}} - {{$tanaman->max_ppm}} PPM"
-                  data-tanggal_awal="{{$tanaman->tanggal_tanam}}"
-                  data-tanggal_akhir="{{$tanaman->tanggal_berakhir}}"
-                  data-keterangan="{{$tanaman->keterangan}}"
-                  data-status="{{$tanaman->status}}"
-               >
-                  Edit
-               </button>
-               <button type="submit" class="btn btn-danger btn-sm" disabled>Delete</button>
-               @endif
-            </td>
-          </tr>
-         @endforeach
-      </tbody>
    </table>
 </div>
 
@@ -115,7 +59,7 @@
                <div class="form-group row">
                   <label for="namaTanaman" class="col-sm-3 col-form-label">Nama Pengaliran</label>
                   <div class="col-sm-9">
-                     <input type="text" name="nama_tanaman" class="form-control" id="namaTanaman">
+                     <input type="text" name="nama_tanaman" class="form-control" id="namaTanaman" required>
                   </div>
                </div>
                <div class="form-group row">
@@ -170,21 +114,68 @@
 @stop
 
 @section('css')
-{{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css"> --}}
 @stop
 
 @section('js')
-{{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script> --}}
 <script>
    $(document).ready(function() {
-    $('#table_tanaman').DataTable({
-      // "processing": true,
-      // "serverSide": true,
-      responsive: true,
-		"dom": '<"row"<"col-sm" i><"col-sm" f>>t<"row"<"col-sm" p>>',
+   var  t =  $('#table_tanaman').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "ajax": "{{url('/getAllPengaliran')}}",
+      "responsive": true,
+		
+      "columns" : [
+         { 
+            "data": "nama_tanaman" 
+         },
+         { 
+            "data": "tanggal_tanam"
+         },
+         { 
+            "data": "min_ppm"
+         },
+         { 
+            "data": "max_ppm"
+         },
+         { 
+            "data": "status"
+         },
+         { 
+            "data": null
+         }
+      ],
       "columnDefs": [
-         // { "width": "200px", "targets": 6 }
-      ]
+         {
+            "targets": 4,
+            "render": function ( data, type, row, meta ) {
+               if (row.status == 0)
+                  return '<span class="badge badge-danger">Berakhir</span>';
+               else return '<span class="badge badge-success">Aktif</span>';
+               
+            }
+         },
+         {
+            "targets": 5,
+            "render": function ( data, type, row, meta ) {
+               var showButton = '<a class="btn btn-info btn-sm" href="pengaliran/'+row.id_pengaliran+'">Show</a>';
+               var editButton = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"'
+                     +'data-id_pengaliran="'+row.id_pengaliran+'"'+
+                     'data-nama="'+row.nama_tanaman+'"'+
+                     'data-deskripsi="'+row.deskripsi+'"'+
+                     'data-ppm="'+row.min_ppm+' - '+row.max_ppm+' PPM"'+
+                     'data-tanggal_awal="'+row.tanggal_tanam+'"'+
+                     'data-tanggal_akhir="'+row.tanggal_berakhir+'"'+
+                     'data-keterangan="'+row.keterangan+'"'+
+                     'data-status="'+row.status+'">Edit </button>';
+               var deleteButton = '<a class="btn btn-danger btn-sm" href="deletePengaliran/'+row.id_pengaliran+'">Delete</a>'
+
+               if (row.status == 0)
+                  return showButton+' '+editButton+' '+deleteButton;
+               else return showButton+' '+editButton;
+            }
+         }
+      ],
 	});
 
    $('#edit').on('show.bs.modal', function (event) {

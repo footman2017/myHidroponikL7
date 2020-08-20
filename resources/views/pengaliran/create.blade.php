@@ -6,7 +6,8 @@
    {{ csrf_field() }}
    <div class="form-group">
       <label for="nama_tanaman">Nama Tanaman</label>
-      <input pattern="[a-zA-Z\s]+$" type="text" class="form-control" id="nama_tanaman" name="nama_tanaman" placeholder="Nama Tanaman" required>
+      {{-- <input pattern="[a-zA-Z\s]+$" type="text" class="form-control" id="nama_tanaman" name="nama_tanaman" placeholder="Nama Tanaman" required> --}}
+      <input type="text" class="form-control" id="nama_tanaman" name="nama_tanaman" placeholder="Nama Tanaman" required>
    </div>
    <div class="form-group row">
       <div class="col">

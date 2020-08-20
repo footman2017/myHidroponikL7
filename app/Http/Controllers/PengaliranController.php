@@ -19,19 +19,18 @@ class PengaliranController extends Controller
     public function index()
     {
       $user = Auth::user();
-      $thereIsPengaliran = 0;
-      $pengaliran = Pengaliran::where('email', $user->email)->get();
+      // $thereIsPengaliran = 0;
+      // $pengaliran = Pengaliran::where('email', $user->email)->get();
       
-      foreach ($pengaliran as $row) {  
-         if ($row->status == 1) {      //pengecekan apakan ada pengaliran yang aktif
-            $thereIsPengaliran = 1;
-            break;
-         }
-      }
+      if(Pengaliran::where([
+         ['status', 1],
+         ['email', $user->email]
+      ])->exists()) {
+         $thereIsPengaliran = 1;
+      }else $thereIsPengaliran = 0;
 
-      // print_r($thereIsPengaliran);die;
-
-      return view('pengaliran.index', ['pengaliran' => $pengaliran, 'thereIsPengaliran' => $thereIsPengaliran]);
+      // return view('pengaliran.index', ['pengaliran' => $pengaliran, 'thereIsPengaliran' => $thereIsPengaliran]);
+      return view('pengaliran.indexVer2', ['thereIsPengaliran' => $thereIsPengaliran]);
     }
 
     /**

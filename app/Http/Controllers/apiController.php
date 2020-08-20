@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PembacaanSensor;
+use App\Pengaliran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +22,6 @@ class apiController extends Controller
 
     public function requestPPM(){
       $user = Auth::user();
-      // $data = PembacaanSensor::orderBy('waktu', 'desc')
-      //    ->take(10)
-      //    ->get();
 
       $data = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
       ->select('ppm1', 'ppm2', 'waktu')
@@ -91,6 +89,11 @@ class apiController extends Controller
       ', ['id' => $request->get('id')]);
 
       return response()->json($results);
+   }
+
+   public function getAllPengaliran(){
+      $user = Auth::user();
+      return datatables(Pengaliran::where('email', $user->email)->get())->toJson();
    }
 
    //********************//

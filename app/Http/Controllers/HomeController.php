@@ -51,7 +51,7 @@ class HomeController extends Controller
       return view('pengaliran.update', ['pengaliran' => $pengaliran]);
    }
 
-   public function uploadImage(Request $request){
+   public function update(Request $request){
       $request->validate([
          'imageFile' => 'required',
          'imageFile.*' => 'mimes:jpg,png,jpeg,gif'

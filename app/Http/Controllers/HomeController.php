@@ -60,13 +60,13 @@ class HomeController extends Controller
       if($request->hasfile('imageFile')) {
          foreach ($request->file('imageFile') as $file) {
             $fileName = time().'_'.$file->getClientOriginalName();
-            $filePath = $file->move(public_path().'/files/', $fileName);
+            $file->move(public_path().'/files/', $fileName);
             
             $fileModel = new Kondisi;
             $fileModel->id = uniqid();
             $fileModel->id_pengaliran = $request->get('id_pengaliran');
             $fileModel->nama_foto = $fileName;
-            $fileModel->image_path = $filePath;
+            // $fileModel->image_path = $filePath;
             $fileModel->save();
          }
 

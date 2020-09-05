@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $id
  * @property string $id_pengaliran
  * @property string $nama_foto
- * @property string $image_path
  * @property Pengaliran $pengaliran
  */
 class Kondisi extends Model
@@ -38,7 +37,7 @@ class Kondisi extends Model
     /**
      * @var array
      */
-    protected $fillable = ['id', 'id_pengaliran', 'nama_foto', 'image_path'];
+    protected $fillable = ['id', 'id_pengaliran', 'nama_foto'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

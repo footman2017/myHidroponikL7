@@ -132,13 +132,13 @@ class PengaliranController extends Controller
       if($request->hasfile('imageFile')) {
          foreach ($request->file('imageFile') as $file) {
             $fileName = time().'_'.$file->getClientOriginalName();
-            $filePath = $file->move(public_path().'/files/', $fileName);
+            $file->move(public_path().'/files/', $fileName);
             
             $fileModel = new Kondisi;
             $fileModel->id = uniqid();
             $fileModel->id_pengaliran = $request->get('id_pengaliran');
             $fileModel->nama_foto = $fileName;
-            $fileModel->image_path = $filePath;
+            // $fileModel->image_path = $filePath;
             $fileModel->save();
          }
       }
@@ -157,9 +157,12 @@ class PengaliranController extends Controller
       $dataSensor->delete();
 
       $dataFoto = Kondisi::where('id_pengaliran', $id)->get();
+      $path = public_path().'/files/';
+      // print_r($path);
       
       foreach ($dataFoto as $item) {
-         if(file_exists($item->image_path)) unlink($item->image_path);
+         // if(file_exists($item->image_path)) unlink($item->image_path);
+         if(file_exists($path.$item->nama_foto)) unlink($path.$item->nama_foto);
          $item->delete();
       }
 

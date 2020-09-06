@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pengaliran;
+use App\PembacaanSensor;
 use App\Kondisi;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -38,11 +40,33 @@ class HomeController extends Controller
       }else $data = 0;
 
       $pengaliran = Pengaliran::where('email', $user->email)->get();
+      
+      $data_ppm = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
+         ->select('ppm1', 'ppm2', 'waktu')
+         ->where([
+            ['email', $user->email],
+            ['status', 1],
+         ])
+         ->orderBy('pembacaan_sensor.waktu', 'desc')
+         ->take(10)
+      ->get();
+      
+      $data_serapan = DB::select('
+         select waktu as tanggal, (ppm1 - ppm2) as selisih
+         from pembacaan_sensor
+         left join pengaliran on pengaliran.id_pengaliran = pembacaan_sensor.id_pengaliran
+         where email = :emailUser and status = 1
+         order by tanggal desc
+         limit 10
+      ', ['emailUser' => $user->email]);
 
-      return view('home', 
+
+      return view('home[ver2]', 
       [
          'data' => $data,
-         'dataPengaliran' => $pengaliran
+         'dataPengaliran' => $pengaliran,
+         'dataPPM' => $data_ppm,
+         'dataSerapan' => $data_serapan
       ]);
    }
 

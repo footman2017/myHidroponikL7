@@ -90,11 +90,20 @@ class PengaliranController extends Controller
       ', ['id' => $pengaliran->id_pengaliran]);
 
       $foto = Kondisi::where('id_pengaliran', $pengaliran->id_pengaliran)->get();
+
+      $serapanPPM = DB::select('
+         select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2))/count(*) as selisih, sum(ppm1)/count(*) as "ppm1", sum(ppm2)/count(*) as "ppm2"
+         from pembacaan_sensor
+         where id_pengaliran = :id
+         group by tanggal
+         order by tanggal asc
+      ', ['id' => $pengaliran->id_pengaliran]);
       
-      return view('pengaliran.detail', [
+      return view('pengaliran.detail[ver2]', [
          'pengaliran' => $pengaliran, 
          'totalSerapan' => $totalSerapan, 
-         'foto' => $foto
+         'foto' => $foto,
+         'serapanPPM' => $serapanPPM
       ]);
     }
 

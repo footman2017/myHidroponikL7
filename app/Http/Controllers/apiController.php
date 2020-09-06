@@ -33,7 +33,6 @@ class apiController extends Controller
       ->take(10)
       ->get();
 
-      // print_r(response()->json($data));die;
       return response()->json($data);
    }
 

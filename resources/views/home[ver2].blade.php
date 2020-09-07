@@ -262,8 +262,13 @@ $(document).ready(function() {
                      time = response.waktu.split(' ');
                      arrPPMupdate = [response.ppm1, response.ppm2];
                      if(tanggal[tanggal.length-1] != time[1]){
-                        addData(myChart, time[1], arrPPMupdate);
-                        removeData(myChart);
+                        // console.log(tanggal.length);
+                        if(tanggal.length < 10){
+                           addData(myChart, time[1], arrPPMupdate);   
+                        }else{
+                           addData(myChart, time[1], arrPPMupdate);
+                           removeData(myChart);
+                        }
                      }
                   }
                });
@@ -320,8 +325,12 @@ $(document).ready(function() {
                   time = response[0].waktu.split(' ');
                   // console.log(response[0]);
                   if(tanggal_serapan[tanggal_serapan.length-1] != time[1]){
-                     addData(serapanChart, time[1], response[0].selisih);
-                     removeData(serapanChart);
+                     if(tanggal_serapan.length < 10){
+                        addData(serapanChart, time[1], response[0].selisih);
+                     }else{
+                        addData(serapanChart, time[1], response[0].selisih);
+                        removeData(serapanChart);
+                     }
                   }
                }
             });

@@ -90,17 +90,11 @@
                   <label for="keterangan">Keterangan</label>
                   <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                </div>
-               <div class="user-image mb-3">
-                  <div id="imagePrev">
-            
-                  </div>
-              </div>
                <div class="form-group">
-                  <label for="#">Tambah Foto</label>
                   <div class="custom-file">
-                     <input type="file" name="imageFile[]" class="custom-file-input" id="imageFile" multiple="multiple">
-                     <label class="custom-file-label" for="imageFile">Choose image</label>
-                  </div>
+                     <input type="file" name="imageFile[]" class="custom-file-input" id="uploadFile" multiple>
+                     <label class="custom-file-label" for="uploadFile">Choose file</label>
+                   </div>
                </div>
          </div>
          <div class="modal-footer">
@@ -117,8 +111,12 @@
 @stop
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
 <script>
    $(document).ready(function() {
+   bsCustomFileInput.init();
+
    var  t =  $('#table_tanaman').DataTable({
       "processing": true,
       "serverSide": true,
@@ -208,30 +206,10 @@
 
    });
 
-   $(function () {
-      // Multiple images preview with JavaScript
-      var multiImgPreview = function(input, imgPreviewPlaceholder) {
+   $('#edit').on('hidden.bs.modal', function (event) {
+        $('#form_edit')[0].reset();
+    });
 
-      if (input.files) {
-         var filesAmount = input.files.length;
-
-         for (i = 0; i < filesAmount; i++) {
-            var reader = new FileReader();
-
-            reader.onload = function(event) {
-                  $($.parseHTML('<img class="" style="max-width:100px; padding:8px;">')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-            }
-
-            reader.readAsDataURL(input.files[i]);
-         }
-      }
-
-      };
-
-      $('#imageFile').on('change', function() {
-         multiImgPreview(this, '#imagePrev');
-      });
-   });
 } );
 </script>
 @stop

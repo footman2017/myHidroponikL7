@@ -21,10 +21,10 @@
          </div>
       </div>
    </div>
-   <div class="form-group">
+   {{-- <div class="form-group">
       <label for="tanggal_tanam">Tanggal Berakhir</label>
       <input class="form-control" type="text" id="tanggal_tanam" name="tanggal_berakhir"  placeholder="08/04/2020" required>
-   </div>
+   </div> --}}
    <div class="form-group">
       <label for="deskripsi">Deskripsi Pengaliran</label>
       <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>

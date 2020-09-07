@@ -31,7 +31,11 @@
    <div class="form-group row">
       <label for="tanggalAkhir" class="col-sm-2 col-form-label">Tanggal Akhir Pengaliran</label>
       <div class="col-sm-10">
+         @if ($pengaliran->tanggal_berakhir == null)
+         <input type="text" readonly class="form-control-plaintext" id="tanggalAkhir" value="Pengaliran masih berjalan">
+         @else
          <input type="date" readonly class="form-control-plaintext" id="tanggalAkhir" value="{{$pengaliran->tanggal_berakhir}}">
+         @endif
       </div>
    </div>
    <div class="form-group row">

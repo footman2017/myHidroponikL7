@@ -55,7 +55,7 @@ class PengaliranController extends Controller
          'nama_tanaman'=>'required',
          'min_ppm'=>'required',
          'max_ppm'=>'required',
-         'tanggal_berakhir'=>'required',
+         // 'tanggal_berakhir'=>'required',
       ]);
       
       $pengaliran = new Pengaliran([
@@ -67,7 +67,7 @@ class PengaliranController extends Controller
          'max_ppm' => $request->get('max_ppm'),
          'email' => Auth::user()->email,
          'status' => 1,
-         'tanggal_berakhir' => $request->get('tanggal_berakhir'),
+         // 'tanggal_berakhir' => $request->get('tanggal_berakhir'),
       ]);
 
       $pengaliran->save();

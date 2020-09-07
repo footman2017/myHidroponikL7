@@ -96,6 +96,7 @@ class HomeController extends Controller
 
          $pengaliran = Pengaliran::find($request->get('id_pengaliran'));
          $pengaliran->keterangan = $request->get('keterangan');
+         $pengaliran->tanggal_berakhir = date("d-m-Y");
          $pengaliran->status = 0;
          $pengaliran->save();
 

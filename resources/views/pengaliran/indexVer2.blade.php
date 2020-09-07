@@ -77,13 +77,13 @@
                <div class="form-group row">
                   <label for="tanggalAwal" class="col-sm-3 col-form-label">Tanggal Awal Pengaliran</label>
                   <div class="col-sm-9">
-                     <input type="date" readonly class="form-control-plaintext" id="tanggalAwal" value="">
+                     <input type="text" readonly class="form-control-plaintext" id="tanggalAwal" value="">
                   </div>
                </div>
                <div class="form-group row">
                   <label for="tanggalAkhir" class="col-sm-3 col-form-label">Tanggal Akhir Pengaliran</label>
                   <div class="col-sm-9">
-                     <input type="date" readonly class="form-control-plaintext" id="tanggalAkhir" value="">
+                     <input type="text" readonly class="form-control-plaintext" id="tanggalAkhir" value="">
                   </div>
                </div>
                <div class="form-group">
@@ -197,7 +197,12 @@
       modal.find('#deskripsi').val(deskripsi);
       modal.find('#ppm').val(ppm);
       modal.find('#tanggalAwal').val(tanggalAwal);
-      modal.find('#tanggalAkhir').val(tanggalAkhir);
+      // console.log(tanggalAkhir);
+      if(tanggalAkhir==null){
+         modal.find('#tanggalAkhir').val("pengaliran masih berjalan");
+      }else{
+         modal.find('#tanggalAkhir').val(tanggalAkhir);
+      }
       modal.find('#keterangan').val(keterangan);
       modal.find('#idPengaliran').val(idPengaliran);
 

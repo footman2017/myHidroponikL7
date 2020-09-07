@@ -39,7 +39,7 @@ class HomeController extends Controller
          ])->get();
       }else $data = 0;
 
-      $pengaliran = Pengaliran::where('email', $user->email)->get();
+      $pengaliran = Pengaliran::where('email', $user->email)->limit(5)->get();
       
       $data_ppm = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
          ->select('ppm1', 'ppm2', 'waktu')

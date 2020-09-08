@@ -166,7 +166,7 @@
                      'data-tanggal_akhir="'+row.tanggal_berakhir+'"'+
                      'data-keterangan="'+row.keterangan+'"'+
                      'data-status="'+row.status+'">Edit </button>';
-               var deleteButton = '<a class="btn btn-danger btn-sm" href="deletePengaliran/'+row.id_pengaliran+'">Delete</a>'
+               var deleteButton = '<a id="target" class="btn btn-danger btn-sm" href="deletePengaliran/'+row.id_pengaliran+'" role="button">Delete</a>'
 
                if (row.status == 0)
                   return showButton+' '+editButton+' '+deleteButton;
@@ -175,6 +175,10 @@
          }
       ],
 	});
+
+   $('#table_tanaman').on('click', '#target', function() {
+      return confirm("Anda yakin ingin menghapus data yang dipilih ?");
+   });
 
    $('#edit').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);

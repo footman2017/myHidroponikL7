@@ -1,7 +1,14 @@
 @extends('adminlte::page')
 @section('title', 'Detail')
 @section('content')
-<h3>Detail pengaliran {{$pengaliran->nama_tanaman}}</h3>
+<div class="row">
+   <div class="col-11">
+      <h3>Detail pengaliran {{$pengaliran->nama_tanaman}}</h3>
+   </div>
+   <div class="col">
+      <a class="btn btn-primary" href="{{ route('pengaliran.index') }}" role="button">Kembali</a>
+   </div>
+</div>
 <form>
    <input type="hidden" id="idPengaliran" value="{{$pengaliran->id_pengaliran}}">
    <div class="form-group row">

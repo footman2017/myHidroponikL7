@@ -70,6 +70,33 @@ class HomeController extends Controller
       ]);
    }
 
+   public function requestLastPPM(){
+      $user = Auth::user();
+      $data = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
+      ->latest('waktu')
+      ->where([
+         ['email', $user->email],
+         ['status', 1]
+      ])
+      ->first();
+      return response()->json($data);
+   }
+   
+   public function requestLastSerapan(){
+      // $data = PembacaanSensor::latest('waktu')->selectRaw('ppm1-ppm2 as selisih, waktu')->first();
+      // return response()->json($data);
+      $user = Auth::user();
+      $results = DB::select('
+         select waktu, (ppm1 - ppm2) as selisih
+         from pembacaan_sensor
+         left join pengaliran on pengaliran.id_pengaliran = pembacaan_sensor.id_pengaliran
+         where email = :emailUser and status = 1
+         order by waktu desc
+         limit 1
+      ', ['emailUser' => $user->email]);
+
+      return response()->json($results);
+   }
    public function akhiriPengaliran($id){
       $pengaliran = Pengaliran::find($id);
       return view('pengaliran.update', ['pengaliran' => $pengaliran]);

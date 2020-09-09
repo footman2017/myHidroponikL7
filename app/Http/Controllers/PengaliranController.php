@@ -28,9 +28,14 @@ class PengaliranController extends Controller
       ])->exists()) {
          $thereIsPengaliran = 1;
       }else $thereIsPengaliran = 0;
+      
+      $pengaliran = datatables(Pengaliran::where('email', $user->email)->get())->toJson();
 
       // return view('pengaliran.index', ['pengaliran' => $pengaliran, 'thereIsPengaliran' => $thereIsPengaliran]);
-      return view('pengaliran.indexVer2', ['thereIsPengaliran' => $thereIsPengaliran]);
+      return view('pengaliran.indexVer2', [
+         'thereIsPengaliran' => $thereIsPengaliran,
+         'listPengaliran' => $pengaliran
+      ]);
     }
 
     /**
@@ -108,17 +113,6 @@ class PengaliranController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Pengaliran  $pengaliran
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pengaliran $pengaliran)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -178,4 +172,9 @@ class PengaliranController extends Controller
       Pengaliran::destroy($id);
       return redirect()->route('pengaliran.index')->with('success','pengaliran deleted successfully');
     }
+
+    public function getAllPengaliran(){
+      $user = Auth::user();
+      return datatables(Pengaliran::where('email', $user->email)->get())->toJson();
+   }
 }

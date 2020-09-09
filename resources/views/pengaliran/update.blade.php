@@ -28,7 +28,7 @@
    </div>
    <div class="form-group">
       <label for="keterangan">Keterangan</label>
-      <textarea class="form-control" id="keterangan" name="keterangan" rows="3" required></textarea>
+      <textarea class="form-control" id="keterangan" name="keterangan" rows="3" required>{{$pengaliran->keterangan}}</textarea>
    </div>
    <button type="submit" class="btn btn-primary">Akhiri</button>
 </form>

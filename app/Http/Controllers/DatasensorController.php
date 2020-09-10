@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class DatasensorController extends Controller
 {
    public function insert($ppm1, $ppm2){
+      date_default_timezone_set('Asia/Jakarta');
       $pengaliran = Pengaliran::firstWhere('status', 1);
       $dataSensor = new PembacaanSensor([
          'id_pengaliran' => $pengaliran->id_pengaliran,
          'ppm1' => $ppm1,
-         'ppm2' => $ppm2
+         'ppm2' => $ppm2,
+         'waktu' => date('Y-m-d H:i:s')
       ]);
 
       try{

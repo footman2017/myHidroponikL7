@@ -28,6 +28,7 @@ Route::get('/getLastSerapan', 'HomeController@requestLastSerapan');
 
 //pengaliranController
 Route::resource('pengaliran', 'PengaliranController');
+Route::get('/show/{id}', 'PengaliranController@show');
 Route::post('/sunting','PengaliranController@update')->name('Sunting');
 Route::get('/deletePengaliran/{id}', 'PengaliranController@destroy');
 Route::get('/getAllPengaliran', 'PengaliranController@getAllPengaliran');

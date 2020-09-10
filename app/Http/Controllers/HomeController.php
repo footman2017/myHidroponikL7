@@ -29,17 +29,25 @@ class HomeController extends Controller
    public function index()
    {
       $user = Auth::user();
-      if(Pengaliran::where([
-         ['email', $user->email],
-         ['status', 1]
-      ])->exists()) {
-          $data = Pengaliran::where([
+      if(Pengaliran::where([['email', $user->email], ['status', 1]])->exists()) {
+          $data = Pengaliran::firstWhere([
             ['email', $user->email],
             ['status', 1]
-         ])->get();
-      }else $data = 0;
+         ]);
 
-      $pengaliran = Pengaliran::where('email', $user->email)->limit(5)->get();
+         // $pengaliran = Pengaliran::where('email', $user->email)->limit(5)->get();
+         
+         $pengaliran = DB::select("
+            select *
+            from pengaliran
+            where lower(nama_tanaman) like lower('%'||:searchTerm||'%')
+            order by tanggal_tanam desc
+         ", ['searchTerm' => $data->nama_tanaman]);
+         // foreach($pengaliran as $row){
+         //    $dataPengaliran[] = (array)$row;   
+         // }
+         // print_r($pengaliran->toArray());die;
+      }else $data = 0;
       
       $data_ppm = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
          ->select('ppm1', 'ppm2', 'waktu')
@@ -64,6 +72,7 @@ class HomeController extends Controller
       return view('home[ver2]', 
       [
          'data' => $data,
+         // 'dataPengaliran' => $dataPengaliran,
          'dataPengaliran' => $pengaliran,
          'dataPPM' => $data_ppm,
          'dataSerapan' => $data_serapan

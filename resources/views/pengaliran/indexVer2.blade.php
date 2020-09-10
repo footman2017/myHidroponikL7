@@ -156,7 +156,7 @@
          {
             "targets": 5,
             "render": function ( data, type, row, meta ) {
-               var showButton = '<a class="btn btn-info btn-sm" href="pengaliran/'+row.id_pengaliran+'">Show</a>';
+               var showButton = '<a class="btn btn-info btn-sm" href="show/'+row.id_pengaliran+'">Show</a>';
                var editButton = '<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit"'
                      +'data-id_pengaliran="'+row.id_pengaliran+'"'+
                      'data-nama="'+row.nama_tanaman+'"'+

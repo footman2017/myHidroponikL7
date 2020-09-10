@@ -14,7 +14,7 @@
       <h1>Tidak ada pengaliran yang sedang berjalan</h1>
    </div>
 @else
-@foreach ($data as $item)
+{{-- @foreach ($data as $item) --}}
     {{-- <div class="container"> --}}
    <div id="PPMgraph">
       <div class="card">
@@ -72,7 +72,7 @@
               Status
            </div>
            <div class="card-body">
-              @if ($item->status==1)
+              @if ($data->status==1)
                  <button type="button" class="btn btn-success">Connected</button>
               @else
                  <button type="button" class="btn btn-danger">Disconected</button>
@@ -86,7 +86,7 @@
               PPM
            </div>
            <div class="card-body">
-              <p class="card-text">{{$item->min_ppm}}-{{$item->max_ppm}}</p>
+              <p class="card-text">{{$data->min_ppm}}-{{$data->max_ppm}}</p>
            </div>
         </div>
      </div>
@@ -96,7 +96,7 @@
               Action
            </div>
            <div class="card-body">
-           <a id="end_button"  href="/stop/{{$item->id_pengaliran}}" class="btn btn-primary" role="button">Akhiri Pengaliran</a>
+           <a id="end_button"  href="/stop/{{$data->id_pengaliran}}" class="btn btn-primary" role="button">Akhiri Pengaliran</a>
            </div>
         </div>
      </div>
@@ -106,7 +106,7 @@
         Deskripsi
      </div>
      <div class="card-body">
-     <p class="card-text">{{$item->deskripsi}}</p>
+     <p class="card-text">{{$data->deskripsi}}</p>
      </div>
   </div>
   <div class="card border-primary">
@@ -128,22 +128,34 @@
                @php
                   $i = 1;
                @endphp
-               @foreach ($dataPengaliran as $tanaman)
-               <tr>
+               {{-- @foreach ($dataPengaliran as $tanaman) --}}
+               @php
+                foreach ($dataPengaliran as $tanaman) {
+                  echo'
+                  <tr>
+                     <td>'.$tanaman->deskripsi.'</td>
+                     <td align="center">'.$tanaman->min_ppm.' - '.$tanaman->max_ppm.'</td>
+                     <td align="center">
+                        <a class="btn btn-info btn-sm" href="/show/'.$tanaman->id_pengaliran.'">Show</a>
+                     </td>
+                  </tr>';
+                } 
+               @endphp
+               {{-- <tr>
                   <td>{{$tanaman->deskripsi}}</td>
                   <td align="center">{{$tanaman->min_ppm}} - {{$tanaman->max_ppm}}</td>
                   <td align="center">
                      <a class="btn btn-info btn-sm" href="{{route('pengaliran.show', $tanaman)}}">Show</a>
                   </td>
-               </tr>
-               @endforeach
+               </tr> --}}
+               {{-- @endforeach --}}
             </tbody>
          </table>
       </div>
     </div>
   </div>
 {{-- </div> --}}
-@endforeach
+{{-- @endforeach --}}
 @endif
 
 <br>

@@ -90,15 +90,16 @@ class PengaliranController extends Controller
      * @param  \App\Pengaliran  $pengaliran
      * @return \Illuminate\Http\Response
      */
-    public function show(Pengaliran $pengaliran)
+    public function show($id)
     {
+      $pengaliran = Pengaliran::find($id);
       $totalSerapan = DB::select('
          select (sum(ppm1) - sum(ppm2))/count(*) as total_serapan
          from pembacaan_sensor
          where id_pengaliran = :id
-      ', ['id' => $pengaliran->id_pengaliran]);
+      ', ['id' => $id]);
 
-      $foto = Kondisi::where('id_pengaliran', $pengaliran->id_pengaliran)->get();
+      $foto = Kondisi::where('id_pengaliran', $id)->get();
 
       $serapanPPM = DB::select('
          select date(waktu) as tanggal, (sum(ppm1) - sum(ppm2))/count(*) as selisih, sum(ppm1)/count(*) as "ppm1", sum(ppm2)/count(*) as "ppm2"
@@ -106,7 +107,7 @@ class PengaliranController extends Controller
          where id_pengaliran = :id
          group by tanggal
          order by tanggal asc
-      ', ['id' => $pengaliran->id_pengaliran]);
+      ', ['id' => $id]);
       
       return view('pengaliran.detail[ver2]', [
          'pengaliran' => $pengaliran, 

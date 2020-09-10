@@ -23,12 +23,12 @@
              <i class="fas fa-chart-pie mr-1"></i>
              Kadar PPM
            </h3>
-           <div class="card-tools">
+           {{-- <div class="card-tools">
             <div class="custom-control custom-checkbox">
                <input type="checkbox" class="custom-control-input" id="realtime">
                <label class="custom-control-label" for="realtime">Realtime</label>
              </div>
-           </div>
+           </div> --}}
          </div><!-- /.card-header -->
          <div class="card-body">
            <div class="tab-content p-0">
@@ -47,12 +47,12 @@
             <i class="fas fa-chart-pie mr-1"></i>
             Serapan PPM
           </h3>
-          <div class="card-tools">
+          {{-- <div class="card-tools">
             <div class="custom-control custom-checkbox">
                <input type="checkbox" class="custom-control-input" id="realtime_serapan">
                <label class="custom-control-label" for="realtime_serapan">Realtime</label>
              </div>
-           </div>
+           </div> --}}
         </div><!-- /.card-header -->
         <div class="card-body">
           <div class="tab-content p-0">
@@ -261,8 +261,8 @@ $(document).ready(function() {
          }
       });
 
-      $('#realtime').change(function() {
-         if(this.checked) {
+      // $('#realtime').change(function() {
+         // if(this.checked) {
             refreshIntervalId = setInterval(function(){
                $.ajax({
                   url: "{{url('/getLastPPM')}}",
@@ -286,11 +286,11 @@ $(document).ready(function() {
                });
 
             }, 1000);      
-         }else{
-            console.log(refreshIntervalId);
-            clearInterval(refreshIntervalId);
-         }
-      });
+         // }else{
+         //    console.log(refreshIntervalId);
+         //    clearInterval(refreshIntervalId);
+         // }
+      // });
       
    //buat grafik serapan
    serapanPPM.forEach(function(data){
@@ -324,8 +324,8 @@ $(document).ready(function() {
       }
    });
 
-   $('#realtime_serapan').change(function() {
-      if(this.checked) {
+   // $('#realtime_serapan').change(function() {
+      // if(this.checked) {
          refreshIntervalIdSerapan = setInterval(function(){
             $.ajax({
                url: "{{url('/getLastSerapan')}}",
@@ -348,11 +348,11 @@ $(document).ready(function() {
             });
 
          }, 1000);      
-      }else{
-         console.log(refreshIntervalIdSerapan);
-         clearInterval(refreshIntervalIdSerapan);
-      }
-   });
+      // }else{
+      //    console.log(refreshIntervalIdSerapan);
+      //    clearInterval(refreshIntervalIdSerapan);
+      // }
+   // });
       
    
    });

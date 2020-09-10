@@ -47,7 +47,11 @@ class HomeController extends Controller
          //    $dataPengaliran[] = (array)$row;   
          // }
          // print_r($pengaliran->toArray());die;
-      }else $data = 0;
+      }else{
+         $data = 0;
+         $pengaliran = 0;
+      }
+         
       
       $data_ppm = PembacaanSensor::join('pengaliran', 'pembacaan_sensor.id_pengaliran', '=', 'pengaliran.id_pengaliran')
          ->select('ppm1', 'ppm2', 'waktu')

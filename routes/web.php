@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
-
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 //homeController
@@ -31,3 +31,8 @@ Route::resource('pengaliran', 'PengaliranController');
 Route::post('/sunting','PengaliranController@update')->name('Sunting');
 Route::get('/deletePengaliran/{id}', 'PengaliranController@destroy');
 Route::get('/getAllPengaliran', 'PengaliranController@getAllPengaliran');
+
+//DatasensorController
+Route::get('/add/{ppm1}/{ppm2}','DatasensorController@insert');
+Route::get('/getDeskripsiPengaliran','DatasensorController@getDeskripsi');
+Route::get('/getMinPPM','DatasensorController@getMinPPM');
